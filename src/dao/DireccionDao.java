@@ -80,7 +80,7 @@ public class DireccionDao {
 	}
 	
 	
-	void addDireccion(Direccion direccion) {
+	public void addDireccion(Direccion direccion) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
