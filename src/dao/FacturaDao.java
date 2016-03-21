@@ -13,7 +13,7 @@ import conection.ConnectionManager;
 public class FacturaDao {
 	private final static Logger Log = Logger.getLogger(FacturaDao.class.getName());
 	
-	Set<Factura> getFacturas() {
+	public Set<Factura> getFacturas() {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -78,7 +78,7 @@ public class FacturaDao {
 		return facturas;
 	}
 	
-	Factura getFactura(int idFacturaABuscar) {
+	public Factura getFactura(int idFacturaABuscar) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -146,7 +146,7 @@ public class FacturaDao {
 		return factura;
 	}
 	
-	void addFactura(Factura factura) {
+	public void addFactura(Factura factura) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -195,7 +195,7 @@ public class FacturaDao {
 		}
 	}
 	
-	void updateFactura(Factura factura) {
+	public void updateFactura(Factura factura) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -249,7 +249,7 @@ public class FacturaDao {
 		}
 	}
 	
-	void deleteFactura(Factura factura) {
+	public void deleteFactura(Factura factura) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -293,7 +293,7 @@ public class FacturaDao {
 		}
 	}
 	
-	void deleteFactura(int idFactura) {
+	public void deleteFactura(int idFactura) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();

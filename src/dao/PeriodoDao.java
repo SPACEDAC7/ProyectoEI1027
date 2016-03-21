@@ -13,7 +13,7 @@ import conection.ConnectionManager;
 public class PeriodoDao {
 	private final static Logger Log = Logger.getLogger(PeriodoDao.class.getName());
 	
-	Set<Periodo> getPeriodos() {
+	public Set<Periodo> getPeriodos() {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -78,7 +78,7 @@ public class PeriodoDao {
 		return periodos;
 	}
 	
-	Periodo getPeriodo(int idPeriodoABuscar) {
+	public Periodo getPeriodo(int idPeriodoABuscar) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -145,7 +145,7 @@ public class PeriodoDao {
 		return periodo;
 	}
 	
-	void addPeriodo(Periodo periodo) {
+	public void addPeriodo(Periodo periodo) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -193,7 +193,7 @@ public class PeriodoDao {
 		}
 	}
 	
-	void updatePeriodo(Periodo periodo) {
+	public void updatePeriodo(Periodo periodo) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -246,7 +246,7 @@ public class PeriodoDao {
 		}
 	}
 	
-	void deletePeriodo(Periodo periodo) {
+	public void deletePeriodo(Periodo periodo) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -290,7 +290,7 @@ public class PeriodoDao {
 		}
 	}
 	
-	void deletePeriodo(int idPeriodo) {
+	public void deletePeriodo(int idPeriodo) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();

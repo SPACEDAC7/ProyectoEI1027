@@ -11,7 +11,7 @@ public class DireccionDao {
 	private final static Logger Log = Logger.getLogger(DireccionDao.class.getName()); 
 	private Connection conn = null;
 	
-	Direccion getNadador(int id_direccion) {
+	public Direccion getNadador(int id_direccion) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -130,7 +130,7 @@ public class DireccionDao {
 		}
 	}
 	
-	void updateDireccion(Direccion direccion) {
+	public void updateDireccion(Direccion direccion) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -185,7 +185,7 @@ public class DireccionDao {
 		}
 	}
 
-	void deleteDireccion(Direccion direccion) {
+	public void deleteDireccion(Direccion direccion) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();

@@ -13,7 +13,7 @@ import conection.ConnectionManager;
 public class ReservaDao {
 	private final static Logger Log = Logger.getLogger(ReservaDao.class.getName());
 	
-	Set<Reserva> getReservas() {
+	public Set<Reserva> getReservas() {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -83,7 +83,7 @@ public class ReservaDao {
 		return reservas;
 	}
 	
-	Reserva getReserva(int idReservaABuscar) {
+	public Reserva getReserva(int idReservaABuscar) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -155,7 +155,7 @@ public class ReservaDao {
 		return reserva;
 	}
 	
-	void addReserva(Reserva reserva) {
+	public void addReserva(Reserva reserva) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -208,7 +208,7 @@ public class ReservaDao {
 		}
 	}
 	
-	void updateReserva(Reserva reserva) {
+	public void updateReserva(Reserva reserva) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -269,7 +269,7 @@ public class ReservaDao {
 		}
 	}
 	
-	void deleteReserva(Reserva reserva) {
+	public void deleteReserva(Reserva reserva) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -313,7 +313,7 @@ public class ReservaDao {
 		}
 	}
 	
-	void deleteReserva(int idReserva) {
+	public void deleteReserva(int idReserva) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();

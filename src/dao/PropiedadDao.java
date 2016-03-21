@@ -14,7 +14,7 @@ import conection.ConnectionManager;
 public class PropiedadDao {
 	private final static Logger Log = Logger.getLogger(PropiedadDao.class.getName());
 	
-	Set<Propiedad> getPropiedades() {
+	public 	Set<Propiedad> getPropiedades() {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -88,7 +88,7 @@ public class PropiedadDao {
 		return propiedades;
 	}
 	
-	Propiedad getPropiedad(int idPropiedadABuscar) {
+	public Propiedad getPropiedad(int idPropiedadABuscar) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -165,7 +165,7 @@ public class PropiedadDao {
 		return propiedad;
 	}
 	
-	void addPropiedad(Propiedad propiedad) {
+	public void addPropiedad(Propiedad propiedad) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -224,7 +224,7 @@ public class PropiedadDao {
 		}
 	}
 	
-	void updatePropiedad(Propiedad propiedad) {
+	public void updatePropiedad(Propiedad propiedad) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -294,7 +294,7 @@ public class PropiedadDao {
 		}
 	}
 	
-	void deletePropiedad(Propiedad propiedad) {
+	public void deletePropiedad(Propiedad propiedad) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -338,7 +338,7 @@ public class PropiedadDao {
 		}
 	}
 	
-	void deletePropiedad(int id_propiedad) {
+	public void deletePropiedad(int id_propiedad) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();

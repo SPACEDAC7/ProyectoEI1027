@@ -13,7 +13,7 @@ import conection.ConnectionManager;
 public class UsuarioDao {
 	private final static Logger Log = Logger.getLogger(UsuarioDao.class.getName());
 	
-	Set<Usuario> getUsuarios() {
+	public Set<Usuario> getUsuarios() {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -84,7 +84,7 @@ public class UsuarioDao {
 		return usuarios;
 	}
 	
-	Usuario getUsuario(int idUsuarioABuscar) {
+	public Usuario getUsuario(int idUsuarioABuscar) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -215,7 +215,7 @@ public class UsuarioDao {
 	}
 	
 	
-	void updateUsuario(Usuario usuario) {
+	public void updateUsuario(Usuario usuario) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -279,7 +279,7 @@ public class UsuarioDao {
 		}
 	}
 	
-	void deleteUsuario(Usuario usuario) {
+	public void deleteUsuario(Usuario usuario) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -323,7 +323,7 @@ public class UsuarioDao {
 		}
 	}
 	
-	void deleteUsuario(int idUsuario) {
+	public void deleteUsuario(int idUsuario) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();

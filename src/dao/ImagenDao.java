@@ -16,7 +16,7 @@ public class ImagenDao {
 	private final static Logger Log = Logger.getLogger(DireccionDao.class.getName()); 
 	private Connection conn = null;
 
-	Set<Imagen> getImagenes() {
+	public Set<Imagen> getImagenes() {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -80,7 +80,7 @@ public class ImagenDao {
 		return imagenes;
 	}
 	
-	Set<Imagen> getImagenesPropiedad(int id_propiedad) {
+	public Set<Imagen> getImagenesPropiedad(int id_propiedad) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -145,7 +145,7 @@ public class ImagenDao {
 		return imagenes;
 	}
 	
-	Imagen getImagen(int id_imagen) {
+	public Imagen getImagen(int id_imagen) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -212,7 +212,7 @@ public class ImagenDao {
 	}
 
 
-	void addImagen(Imagen imagen) {
+	public void addImagen(Imagen imagen) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -260,7 +260,7 @@ public class ImagenDao {
 		}
 	}
 
-	void updateImagen(Imagen imagen) {
+	public void updateImagen(Imagen imagen) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -311,7 +311,7 @@ public class ImagenDao {
 		}
 	}
 
-	void deleteImagen(Imagen imagen) {
+	public void deleteImagen(Imagen imagen) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();

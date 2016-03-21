@@ -14,7 +14,7 @@ public class PuntuacionDao {
 	
 	private final static Logger Log = Logger.getLogger(PuntuacionDao.class.getName());
 	
-	Set<Puntuacion> getPuntuaciones() {
+	public Set<Puntuacion> getPuntuaciones() {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -80,7 +80,7 @@ public class PuntuacionDao {
 		return puntuaciones;
 	}
 	
-	Set<Puntuacion> getPuntuacionesDePropiedad(int idPropiedad) {
+	public Set<Puntuacion> getPuntuacionesDePropiedad(int idPropiedad) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -146,7 +146,7 @@ public class PuntuacionDao {
 		return puntuaciones;
 	}
 	
-	Puntuacion getPuntuacion(int idPuntuacionABuscar) {
+	public Puntuacion getPuntuacion(int idPuntuacionABuscar) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -214,7 +214,7 @@ public class PuntuacionDao {
 		return puntuacion;
 	}
 	
-	void addPuntuacion(Puntuacion puntuacion) {
+	public void addPuntuacion(Puntuacion puntuacion) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -263,7 +263,7 @@ public class PuntuacionDao {
 		}
 	}
 	
-	void updatePuntuacion(Puntuacion puntuacion) {
+	public void updatePuntuacion(Puntuacion puntuacion) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -318,7 +318,7 @@ public class PuntuacionDao {
 		}
 	}
 	
-	void deletePuntuacion(Puntuacion puntuacion) {
+	public void deletePuntuacion(Puntuacion puntuacion) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -362,7 +362,7 @@ public class PuntuacionDao {
 		}
 	}
 	
-	void deletePuntuacion(int idPuntuacion) {
+	public void deletePuntuacion(int idPuntuacion) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();

@@ -12,7 +12,7 @@ public class CredencialDao {
 	private final static Logger Log = Logger.getLogger(DireccionDao.class.getName()); 
 	private Connection conn = null;
 	
-	Credencial getCredencial(int id_credencial) {
+	public Credencial getCredencial(int id_credencial) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -127,7 +127,7 @@ public class CredencialDao {
 		}
 	}
 	
-	void updateCredencial(Credencial credencial) {
+	public void updateCredencial(Credencial credencial) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -178,7 +178,7 @@ public class CredencialDao {
 		}
 	}
 
-	void deleteCredencial(Credencial credencial) {
+	public void deleteCredencial(Credencial credencial) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
