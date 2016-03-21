@@ -10,11 +10,10 @@ import java.util.logging.Logger;
 
 import conection.ConnectionManager;
 
-
-public class PropiedadDao {
-	private final static Logger Log = Logger.getLogger(PropiedadDao.class.getName());
+public class ReservaDao {
+	private final static Logger Log = Logger.getLogger(ReservaDao.class.getName());
 	
-	Set<Propiedad> getPropiedades() {
+	Set<Reserva> getReservas() {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -29,30 +28,26 @@ public class PropiedadDao {
 			e.printStackTrace();
 			return null;
 		}
-		HashSet<Propiedad> propiedades = new HashSet<Propiedad>();
+		HashSet<Reserva> reservas = new HashSet<Reserva>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			stmt = conn.prepareStatement("select id_propiedad, id_usuario, titulo, descripcion"
-					+ ", tipo, capacidad, num_habitaciones, num_camas, area, servicios"
-					+ ", precio_propiedad, id_direccion, url_mapa from propiedad");
+			stmt = conn.prepareStatement("select id_reserva, id_usuario, id_propiedad"
+					+ ", fecha_reserva, fecha_checkin, fecha_checkout, precio_reserva"
+					+ ", estado from reserva");
+			
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				Propiedad propiedad = new Propiedad();
-				propiedad.setId_propiedad(rs.getInt("id_propiedad"));
-				propiedad.setId_usuario(rs.getInt("id_usuario"));
-				propiedad.setTitulo(rs.getString("titulo"));
-				propiedad.setDescripcion(rs.getString("descripcion"));
-				propiedad.setTipo(rs.getString("tipo"));
-				propiedad.setCapacidad(rs.getInt("capacidad"));
-				propiedad.setNum_habitaciones(rs.getInt("num_habitaciones"));
-				propiedad.setNum_camas(rs.getInt("num_camas"));
-				propiedad.setArea(rs.getInt("area"));
-				propiedad.setServicios(rs.getString("servicios"));
-				propiedad.setPrecio_propiedad(rs.getFloat("precio_propiedad"));
-				propiedad.setId_direccion(rs.getInt("id_direccion"));
-				propiedad.setUrl_mapa(rs.getString("url_mapa"));
-				propiedades.add(propiedad);
+				Reserva reserva = new Reserva();
+				reserva.setIdReserva(rs.getInt("id_reserva"));
+				reserva.setIdUsuario(rs.getInt("idUsuario"));
+				reserva.setIdPropiedad(rs.getInt("id_propiedad"));
+				reserva.setFechaReserva(rs.getDate("fecha_reserva"));
+				reserva.setFechaCheckin(rs.getDate("fecha_checkin"));
+				reserva.setFechaCheckout(rs.getDate("fecha_chechout"));
+				reserva.setPrecioReserva(rs.getFloat("precio_reserva"));
+				reserva.setEstado(rs.getString("estado"));
+				reservas.add(reserva);
 			}
 		}
 		catch (SQLException e) {
@@ -85,10 +80,10 @@ public class PropiedadDao {
 				e.printStackTrace();
 			}
 		}
-		return propiedades;
+		return reservas;
 	}
 	
-	Propiedad getPropiedad(int idPropiedadABuscar) {
+	Reserva getReserva(int idReservaABuscar) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -105,30 +100,25 @@ public class PropiedadDao {
 		}
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		Propiedad propiedad = null;
+		Reserva reserva = null;
 		try {
-			String sql = "select id_propiedad, id_usuario, titulo, descripcion"
-					+ ", tipo, capacidad, num_habitaciones, num_camas, area, servicios"
-					+ ", precio_propiedad, id_direccion, url_mapa from propiedad where id_propiedad=?;";
+			String sql = "select id_reserva, id_usuario, id_propiedad"
+					+ ", fecha_reserva, fecha_checkin, fecha_checkout, precio_reserva"
+					+ ", estado from reserva where id_reserva=?;";
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, idPropiedadABuscar);
+			stmt.setInt(1, idReservaABuscar);
 			rs = stmt.executeQuery();
-			propiedad = new Propiedad();
+			reserva = new Reserva();
 			if (rs != null) {
 				while (rs.next()) {
-					propiedad.setId_propiedad(rs.getInt(1));
-					propiedad.setId_usuario(rs.getInt(2));
-					propiedad.setTitulo(rs.getString(3));
-					propiedad.setDescripcion(rs.getString(4));
-					propiedad.setTipo(rs.getString(5));
-					propiedad.setCapacidad(rs.getInt(6));
-					propiedad.setNum_habitaciones(rs.getInt(7));
-					propiedad.setNum_camas(rs.getInt(8));
-					propiedad.setArea(rs.getInt(9));
-					propiedad.setServicios(rs.getString(10));
-					propiedad.setPrecio_propiedad(rs.getFloat(11));
-					propiedad.setId_direccion(rs.getInt(12));
-					propiedad.setUrl_mapa(rs.getString(13));
+					reserva.setIdReserva(rs.getInt(1));
+					reserva.setIdUsuario(rs.getInt(2));
+					reserva.setIdPropiedad(rs.getInt(3));
+					reserva.setFechaReserva(rs.getDate(4));
+					reserva.setFechaCheckin(rs.getDate(5));
+					reserva.setFechaCheckout(rs.getDate(6));
+					reserva.setPrecioReserva(rs.getFloat(7));
+					reserva.setEstado(rs.getString(8));
 				}
 			}
 		} 
@@ -162,10 +152,10 @@ public class PropiedadDao {
 				e.printStackTrace();
 			}
 		}
-		return propiedad;
+		return reserva;
 	}
 	
-	void addPropiedad(Propiedad propiedad) {
+	void addReserva(Reserva reserva) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -183,23 +173,17 @@ public class PropiedadDao {
 		PreparedStatement stmt = null;
 		try {
 			 stmt = conn.prepareStatement(
-					"insert into propiedad(id_propiedad, id_usuario, titulo, descripcion"
-					+ ", tipo, capacidad, num_habitaciones, num_camas, area, servicios"
-					+ ", precio_propiedad, id_direccion, url_mapa) "
-					+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-			stmt.setInt(1, propiedad.getId_propiedad());
-			stmt.setInt(2, propiedad.getId_usuario());
-			stmt.setString(3, propiedad.getTitulo());
-			stmt.setString(4, propiedad.getDescripcion());
-			stmt.setString(5, propiedad.getTipo());
-			stmt.setInt(6, propiedad.getCapacidad());
-			stmt.setInt(7, propiedad.getNum_habitaciones());
-			stmt.setInt(8, propiedad.getNum_camas());
-			stmt.setInt(9, propiedad.getArea());
-			stmt.setString(10, propiedad.getServicios());
-			stmt.setFloat(11, propiedad.getPrecio_propiedad());
-			stmt.setInt(12, propiedad.getId_direccion());
-			stmt.setString(13, propiedad.getUrl_mapa());
+					"insert into reserva(id_reserva, id_usuario, id_propiedad"
+					+ ", fecha_reserva, fecha_checkin, fecha_checkout, precio_reserva"
+					+ ", estado) values(?, ?, ?, ?, ?, ?, ?, ?)");
+			stmt.setInt(1, reserva.getIdReserva());
+			stmt.setInt(2, reserva.getIdUsuario());
+			stmt.setInt(3, reserva.getIdPropiedad());
+			stmt.setDate(4, reserva.getFechaReserva());
+			stmt.setDate(5, reserva.getFechaCheckin());
+			stmt.setDate(6, reserva.getFechaCheckout());
+			stmt.setFloat(7, reserva.getPrecioReserva());
+			stmt.setString(8, reserva.getEstado());
 			stmt.execute();	
 		}
 		catch (SQLException e) {
@@ -224,7 +208,7 @@ public class PropiedadDao {
 		}
 	}
 	
-	void updatePropiedad(Propiedad propiedad) {
+	void updateReserva(Reserva reserva) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -241,35 +225,26 @@ public class PropiedadDao {
 		}
 		PreparedStatement stmt = null;
 		try {
-			stmt = conn.prepareStatement(
-					"update propiedad "
-					+ "set id_usuario = ?,"
-					+ "titulo = ?,"
-					+ "descripcion = ?,"
-					+ "tipo = ?,"
-					+ "capacidad = ?,"
-					+ "num_habitaciones = ?,"
-					+ "num_camas = ?,"
-					+ "area = ?,"
-					+ "servicios = ?,"
-					+ "precio_propiedad = ?,"
-					+ "id_direccion = ?,"
-					+ "url_mapa = ?"
-					+ "where id_propiedad = ?");
 			
-			stmt.setInt(1, propiedad.getId_usuario());
-			stmt.setString(2, propiedad.getTitulo());
-			stmt.setString(3, propiedad.getDescripcion());
-			stmt.setString(4, propiedad.getTipo());
-			stmt.setInt(5, propiedad.getCapacidad());
-			stmt.setInt(6, propiedad.getNum_habitaciones());
-			stmt.setInt(7, propiedad.getNum_camas());
-			stmt.setInt(8, propiedad.getArea());
-			stmt.setString(9, propiedad.getServicios());
-			stmt.setFloat(10, propiedad.getPrecio_propiedad());
-			stmt.setInt(11, propiedad.getId_direccion());
-			stmt.setString(12, propiedad.getUrl_mapa());
-			stmt.setInt(13, propiedad.getId_propiedad());
+			stmt = conn.prepareStatement(
+					"update reserva "
+					+ "set id_usuario = ?,"
+					+ "id_propiedad = ?,"
+					+ "fecha_reserva = ?,"
+					+ "fecha_checkin = ?,"
+					+ "fecha_checkout = ?,"
+					+ "precio_reserva = ?,"
+					+ "estado = ?,"
+					+ "where id_reserva = ?");
+			
+			stmt.setInt(1, reserva.getIdUsuario());
+			stmt.setInt(2, reserva.getIdPropiedad());
+			stmt.setDate(3, reserva.getFechaReserva());
+			stmt.setDate(4, reserva.getFechaCheckin());
+			stmt.setDate(5, reserva.getFechaCheckout());
+			stmt.setFloat(6, reserva.getPrecioReserva());
+			stmt.setString(7, reserva.getEstado());
+			stmt.setInt(8, reserva.getIdReserva());
 			stmt.execute();	
 		}
 		catch (SQLException e) {
@@ -294,7 +269,7 @@ public class PropiedadDao {
 		}
 	}
 	
-	void deletePropiedad(Propiedad propiedad) {
+	void deleteReserva(Reserva reserva) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -311,9 +286,9 @@ public class PropiedadDao {
 		}
 		PreparedStatement stmt = null;
 		try {
-			String sql = "DELETE FROM propiedad WHERE id_propiedad=?";
+			String sql = "DELETE FROM reserva WHERE id_reserva=?";
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, propiedad.getId_propiedad());
+			stmt.setInt(1, reserva.getIdReserva());
 			stmt.executeUpdate();
 		}
 		catch (SQLException e) {
@@ -338,7 +313,7 @@ public class PropiedadDao {
 		}
 	}
 	
-	void deletePropiedad(int id_propiedad) {
+	void deleteReserva(int idReserva) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -355,9 +330,9 @@ public class PropiedadDao {
 		}
 		PreparedStatement stmt = null;
 		try {
-			String sql = "DELETE FROM propiedad WHERE id_propiedad=?";
+			String sql = "DELETE FROM reserva WHERE id_reserva=?";
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, id_propiedad);
+			stmt.setInt(1, idReserva);
 			stmt.executeUpdate();
 		}
 		catch (SQLException e) {
@@ -381,6 +356,5 @@ public class PropiedadDao {
 			}
 		}
 	}
-	
 
 }
