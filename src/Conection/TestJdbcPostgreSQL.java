@@ -1,4 +1,4 @@
-package Conection;
+package conection;
 
 /*
  * Llig les propietats de la connexió d'un fitxer jdbc.properties

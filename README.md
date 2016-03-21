@@ -2,7 +2,7 @@
 Version inicial
 Aqui dejaré el funcionamiento básico del github así como un tutorialde como agragarlo al eclipse y como usarlo
 
-Tutorial para añadirlo y usar en eclipse : http://dawblog.iesgrancapitan.org/?p=425
+Tutorial para añadirlo y usar en eclipse : Enel eclipse importais el zip del proyecto y despues ya subis los cambios en un comit o si os descargais el programa de Github podeis inportar en eclipse el repositorio creado por github as� se registran los cambios y los subes sin tener que pasar de carpeta a carpeta
 
 Explicación básica de como va Github
 

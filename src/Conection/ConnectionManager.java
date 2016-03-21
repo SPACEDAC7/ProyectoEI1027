@@ -1,4 +1,4 @@
-package Conection;
+package conection;
 
 import java.util.logging.Logger;
 import java.io.IOException;
