@@ -58,7 +58,7 @@ public class Factura {
 	@Override
 	public String toString() {
 		return "Factura [idFactura=" + idFactura + ", idReserva=" + idReserva + ", fechaFactura="
-				+ fechaFactura + ", precioFactura=" + precioFactura + ", iva=" + iva + "]";
+				+ fechaFactura.toString() + ", precioFactura=" + precioFactura + ", iva=" + iva + "]";
 	}
 	
 }
