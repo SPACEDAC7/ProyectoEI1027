@@ -15,39 +15,39 @@ public class CreateTable {
 			stmt = conn.createStatement();
 			System.out.println("Creando las tablas de las bases de datos...");
 			String sql_direccion = "CREATE TABLE DIRECCION ("+
-									"id_direccion NUMERIC,"+
-									"calle VARCHAR(50),"+
+									"id_direccion NUMERIC	NOT NULL,"+
+									"calle VARCHAR(50)		NOT NULL,"+
 									"numero NUMERIC,"+
-									"codigo_postal NUMERIC,"+
-									"localidad VARCHAR(50),"+
-									"provincia VARCHAR(50),"+
+									"codigo_postal NUMERIC	NOT NULL,"+
+									"localidad VARCHAR(50)	NOT NULL,"+
+									"provincia VARCHAR(50)	NOT NULL,"+
 									"CONSTRAINT cp_direccion PRIMARY KEY (id_direccion)"+
 									");";
 			String sql_credencial = " CREATE TABLE CREDENCIAL ("+
-									"id_credencial NUMERIC,"+
-									"nick_usuario VARCHAR(20),"+
-									"password VARCHAR(50),"+
-									"rol VARCHAR(30),"+
+									"id_credencial NUMERIC		NOT NULL,"+
+									"nick_usuario VARCHAR(20)	NOT NULL,"+
+									"password VARCHAR(50)		NOT NULL,"+
+									"rol VARCHAR(30)			NOT NULL,"+
 									"CONSTRAINT cp_credencial PRIMARY KEY (id_credencial),"+ 
 									"CONSTRAINT calt_credencial UNIQUE (nick_usuario),"+
 									"CONSTRAINT ri_credencial CHECK (rol='propietario' OR rol='administrador' OR rol='inquilino')"+
 									");";
 			String sql_factura = "CREATE TABLE FACTURA ("+
-									"id_factura NUMERIC,"+
-									"id_reserva NUMERIC,"+
-									"fecha_factura DATE,"+
-									"precio_factura FLOAT(2),"+
+									"id_factura NUMERIC			NOT NULL,"+
+									"id_reserva NUMERIC			NOT NULL,"+
+									"fecha_factura DATE			NOT NULL,"+
+									"precio_factura FLOAT(2)	NOT NULL,"+
 									"iva NUMERIC,"+
 									"CONSTRAINT cp_factura PRIMARY KEY (id_factura),"+
 									"CONSTRAINT ca_factura_reserva FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva) ON UPDATE CASCADE ON DELETE RESTRICT"+
 									");";
 			String sql_usuario = "CREATE TABLE USUARIO ("+
-									"id_usuario NUMERIC,"+
-									"id_credencial NUMERIC,"+
-									"nombre VARCHAR(20),"+
+									"id_usuario NUMERIC		NOT NULL,"+
+									"id_credencial NUMERIC	NOT NULL,"+
+									"nombre VARCHAR(20)		NOT NULL,"+
 									"apellido VARCHAR(50),"+
-									"nif VARCHAR(9),"+
-									"email VARCHAR(50),"+
+									"nif VARCHAR(9)			NOT NULL,"+
+									"email VARCHAR(50)		NOT NULL,"+
 									"id_direccion NUMERIC,"+
 									"fecha_registro DATE,"+
 									"telefono NUMERIC,"+
@@ -58,17 +58,17 @@ public class CreateTable {
 									"CONSTRAINT calt_usuario UNIQUE (nif)"+
 									");";
 			String sql_respuesta_puntuacion = "CREATE TABLE RESPUESTA_PUNTUACION ("+
-									"id_respuesta NUMERIC,"+
-									"id_puntuacion NUMERIC,"+
+									"id_respuesta NUMERIC		NOT NULL,"+
+									"id_puntuacion NUMERIC		NOT NULL,"+
 									"respuesta VARCHAR(1000),"+
 									"CONSTRAINT cp_respuesta_puntuacion PRIMARY KEY (id_respuesta),"+
 									"CONSTRAINT ca_respuesta_puntuacion_puntuacion FOREIGN KEY (id_puntuacion) REFERENCES puntuacion(id_puntuacion) ON UPDATE CASCADE ON DELETE CASCADE"+
 									");";
 			String sql_reserva = "CREATE TABLE RESERVA ("+
-									"id_reserva NUMERIC,"+
-									"id_usuario NUMERIC,"+
-									"id_propiedad NUMERIC,"+
-									"fecha_reserva DATE,"+
+									"id_reserva NUMERIC		NOT NULL,"+
+									"id_usuario NUMERIC		NOT NULL,"+
+									"id_propiedad NUMERIC	NOT NULL,"+
+									"fecha_reserva DATE		NOT NULL,"+
 									"fecha_checkin DATE,"+
 									"fecha_checkout DATE,"+
 									"precio_reserva FLOAT(2),"+
@@ -79,9 +79,9 @@ public class CreateTable {
 									"CONSTRAINT ri_reserva_status CHECK (estado='conformada' OR estado='denegada' OR estado='pendiente')"+
 									");";
 			String sql_puntuacion = "CREATE TABLE PUNTUACION ("+
-									"id_puntuacion NUMERIC,"+
-									"id_propiedad NUMERIC,"+
-									"id_usuario NUMERIC,"+
+									"id_puntuacion NUMERIC		NOT NULL,"+
+									"id_propiedad NUMERIC		NOT NULL,"+
+									"id_usuario NUMERIC			NOT NULL,"+
 									"valor_puntuacion NUMERIC,"+
 									"comentario VARCHAR(1000),"+
 									"CONSTRAINT cp_puntuacion PRIMARY KEY (id_puntuacion),"+
@@ -89,9 +89,9 @@ public class CreateTable {
 									"CONSTRAINT ca_puntuacion_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE RESTRICT ON UPDATE CASCADE"+
 									");";
 			String sql_propiedad = "CREATE TABLE PROPIEDAD ("+
-									"id_propiedad NUMERIC,"+
-									"id_usuario NUMERIC,"+
-									"titulo VARCHAR(50),"+
+									"id_propiedad NUMERIC		NOT NULL,"+
+									"id_usuario NUMERIC			NOT NULL,"+
+									"titulo VARCHAR(50)			NOT NULL,"+
 									"descripcion VARCHAR(1000),"+
 									"tipo VARCHAR(50),"+
 									"capacidad NUMERIC,"+
@@ -107,16 +107,16 @@ public class CreateTable {
 									"CONSTRAINT ca_propiedad_direccion FOREIGN KEY (id_direccion) REFERENCES direccion(id_direccion) ON DELETE RESTRICT ON UPDATE CASCADE"+
 									");";
 			String sql_periodo = "CREATE TABLE PERIODO ("+
-									"id_periodo NUMERIC,"+
-									"id_propiedad NUMERIC,"+
+									"id_periodo NUMERIC		NOT NULL,"+
+									"id_propiedad NUMERIC	NOT NULL,"+
 									"inicio DATE,"+
 									"fin DATE,"+
 									"CONSTRAINT cp_periodo PRIMARY KEY (id_periodo),"+
 									"CONSTRAINT ca_periodo_propiedad FOREIGN KEY (id_propiedad) REFERENCES propiedad(id_propiedad) ON UPDATE CASCADE ON DELETE CASCADE"+
 									");";
 			String sql_imagen = "CREATE TABLE IMAGEN ("+
-									"id_imagen NUMERIC,"+
-									"id_propiedad NUMERIC,"+
+									"id_imagen NUMERIC		NOT NULL,"+
+									"id_propiedad NUMERIC	NOT NULL,"+
 									"pie_foto VARCHAR(50),"+
 									"referencia VARCHAR(50),"+
 									"CONSTRAINT cp_imagen PRIMARY KEY (id_imagen),"+
