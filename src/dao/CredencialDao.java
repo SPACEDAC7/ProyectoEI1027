@@ -23,7 +23,7 @@ public class CredencialDao {
 			return null;
 		}
 		catch (SQLException e) {
-			Log.severe("Error creant connexió JDBC");
+			Log.severe("Error creant connexiï¿½ JDBC");
 			e.printStackTrace();
 			return null;
 		}
@@ -31,7 +31,7 @@ public class CredencialDao {
 		ResultSet rs = null;
 		Credencial credencial = null;
 		try {
-			String sql = "SELECT id_credencial, nick_usuario, password, rol" + 
+			String sql = "SELECT id_credencial, nick_usuario, password, rol " + 
 						"FROM credencial WHERE id_credencial = ?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id_credencial);
@@ -71,7 +71,7 @@ public class CredencialDao {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				Log.warning("Error tancant connexió JDBC");				
+				Log.warning("Error tancant connexiï¿½ JDBC");				
 				e.printStackTrace();
 			}
 		}
@@ -90,7 +90,7 @@ public class CredencialDao {
 			return;
 		}
 		catch (SQLException e) {
-			Log.severe("Error creant connexió JDBC");
+			Log.severe("Error creant connexiï¿½ JDBC");
 			e.printStackTrace();
 			return;
 		}
@@ -121,7 +121,7 @@ public class CredencialDao {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				Log.warning("Error tancant connexió JDBC");				
+				Log.warning("Error tancant connexiï¿½ JDBC");				
 				e.printStackTrace();
 			}
 		}
@@ -138,7 +138,7 @@ public class CredencialDao {
 			return;
 		}
 		catch (SQLException e) {
-			Log.severe("Error creant connexió JDBC");
+			Log.severe("Error creant connexiï¿½ JDBC");
 			e.printStackTrace();
 			return;
 		}
@@ -146,9 +146,9 @@ public class CredencialDao {
 		try {
 			stmt = conn.prepareStatement(
 					"update credencial "
-					+ "set nick_usuario = ?,"
-					+ "password = ?"
-					+ "rol = ?"
+					+ "set nick_usuario = ?, "
+					+ "password = ?, "
+					+ "rol = ? "
 					+ "where id_credencial = ?");
 			stmt.setString(1, credencial.getNick_usuario());
 			stmt.setString(2, credencial.getPassword());
@@ -172,7 +172,7 @@ public class CredencialDao {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				Log.warning("Error tancant connexió JDBC");				
+				Log.warning("Error tancant connexiï¿½ JDBC");				
 				e.printStackTrace();
 			}
 		}
@@ -189,7 +189,7 @@ public class CredencialDao {
 			return;
 		}
 		catch (SQLException e) {
-			Log.severe("Error creant connexió JDBC");
+			Log.severe("Error creant connexiï¿½ JDBC");
 			e.printStackTrace();
 			return;
 		}
@@ -216,7 +216,7 @@ public class CredencialDao {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				Log.warning("Error tancant connexió JDBC");				
+				Log.warning("Error tancant connexiï¿½ JDBC");				
 				e.printStackTrace();
 			}
 		}

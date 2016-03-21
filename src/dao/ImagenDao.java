@@ -36,7 +36,7 @@ public class ImagenDao {
 		ResultSet rs = null;
 		try {
 			stmt = conn.prepareStatement("select id_imagen, id_propiedad, pie_foto , referencia"
-					+ ", from imagen");
+					+ " from imagen");
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				Imagen imagen = new Imagen();
@@ -99,8 +99,8 @@ public class ImagenDao {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			stmt = conn.prepareStatement("select id_imagen, id_propiedad, pie_foto , referencia"
-					+ ", from imagen where id_propiedad = ?");
+			stmt = conn.prepareStatement("select id_imagen, id_propiedad, pie_foto, referencia"
+					+ " from imagen where id_propiedad = ?");
 			stmt.setInt(1, id_propiedad);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -156,7 +156,7 @@ public class ImagenDao {
 			return null;
 		}
 		catch (SQLException e) {
-			Log.severe("Error creant connexió JDBC");
+			Log.severe("Error creant connexiï¿½ JDBC");
 			e.printStackTrace();
 			return null;
 		}
@@ -164,7 +164,7 @@ public class ImagenDao {
 		ResultSet rs = null;
 		Imagen imagen = null;
 		try {
-			String sql = "SELECT id_imagen, id_propiedad, pie_foto, referencia" + 
+			String sql = "SELECT id_imagen, id_propiedad, pie_foto, referencia " + 
 					"FROM imagen WHERE id_imagen = ?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id_imagen);
@@ -204,7 +204,7 @@ public class ImagenDao {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				Log.warning("Error tancant connexió JDBC");				
+				Log.warning("Error tancant connexiï¿½ JDBC");				
 				e.printStackTrace();
 			}
 		}
@@ -223,7 +223,7 @@ public class ImagenDao {
 			return;
 		}
 		catch (SQLException e) {
-			Log.severe("Error creant connexió JDBC");
+			Log.severe("Error creant connexiï¿½ JDBC");
 			e.printStackTrace();
 			return;
 		}
@@ -254,7 +254,7 @@ public class ImagenDao {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				Log.warning("Error tancant connexió JDBC");				
+				Log.warning("Error tancant connexiï¿½ JDBC");				
 				e.printStackTrace();
 			}
 		}
@@ -271,7 +271,7 @@ public class ImagenDao {
 			return;
 		}
 		catch (SQLException e) {
-			Log.severe("Error creant connexió JDBC");
+			Log.severe("Error creant connexiï¿½ JDBC");
 			e.printStackTrace();
 			return;
 		}
@@ -305,7 +305,7 @@ public class ImagenDao {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				Log.warning("Error tancant connexió JDBC");				
+				Log.warning("Error tancant connexiï¿½ JDBC");				
 				e.printStackTrace();
 			}
 		}
@@ -322,7 +322,7 @@ public class ImagenDao {
 			return;
 		}
 		catch (SQLException e) {
-			Log.severe("Error creant connexió JDBC");
+			Log.severe("Error creant connexiï¿½ JDBC");
 			e.printStackTrace();
 			return;
 		}
@@ -349,7 +349,7 @@ public class ImagenDao {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				Log.warning("Error tancant connexió JDBC");				
+				Log.warning("Error tancant connexiï¿½ JDBC");				
 				e.printStackTrace();
 			}
 		}

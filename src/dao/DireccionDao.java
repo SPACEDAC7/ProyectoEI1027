@@ -22,7 +22,7 @@ public class DireccionDao {
 			return null;
 		}
 		catch (SQLException e) {
-			Log.severe("Error creant connexió JDBC");
+			Log.severe("Error creant connexiï¿½ JDBC");
 			e.printStackTrace();
 			return null;
 		}
@@ -30,7 +30,7 @@ public class DireccionDao {
 		ResultSet rs = null;
 		Direccion direccion = null;
 		try {
-			String sql = "SELECT id_direccion, calle, numero, codigo_postal, localidad, provincia" + 
+			String sql = "SELECT id_direccion, calle, numero, codigo_postal, localidad, provincia " + 
 						"FROM direccion WHERE id_direccion = ?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id_direccion);
@@ -72,7 +72,7 @@ public class DireccionDao {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				Log.warning("Error tancant connexió JDBC");				
+				Log.warning("Error tancant connexiï¿½ JDBC");				
 				e.printStackTrace();
 			}
 		}
@@ -91,7 +91,7 @@ public class DireccionDao {
 			return;
 		}
 		catch (SQLException e) {
-			Log.severe("Error creant connexió JDBC");
+			Log.severe("Error creant connexiï¿½ JDBC");
 			e.printStackTrace();
 			return;
 		}
@@ -124,7 +124,7 @@ public class DireccionDao {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				Log.warning("Error tancant connexió JDBC");				
+				Log.warning("Error tancant connexiï¿½ JDBC");				
 				e.printStackTrace();
 			}
 		}
@@ -141,7 +141,7 @@ public class DireccionDao {
 			return;
 		}
 		catch (SQLException e) {
-			Log.severe("Error creant connexió JDBC");
+			Log.severe("Error creant connexiï¿½ JDBC");
 			e.printStackTrace();
 			return;
 		}
@@ -149,11 +149,11 @@ public class DireccionDao {
 		try {
 			stmt = conn.prepareStatement(
 					"update direccion "
-					+ "set calle = ?,"
-					+ "numero = ?"
-					+ "codigo_postal = ?"
-					+ "localidad = ?"
-					+ "provincia = ?"
+					+ "set calle = ?, "
+					+ "numero = ?, "
+					+ "codigo_postal = ?, "
+					+ "localidad = ?, "
+					+ "provincia = ? "
 					+ "where id_direccion = ?");
 			stmt.setString(1, direccion.getCalle());
 			stmt.setInt(2, direccion.getNumero());
@@ -179,7 +179,7 @@ public class DireccionDao {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				Log.warning("Error tancant connexió JDBC");				
+				Log.warning("Error tancant connexiï¿½ JDBC");				
 				e.printStackTrace();
 			}
 		}
@@ -196,7 +196,7 @@ public class DireccionDao {
 			return;
 		}
 		catch (SQLException e) {
-			Log.severe("Error creant connexió JDBC");
+			Log.severe("Error creant connexiï¿½ JDBC");
 			e.printStackTrace();
 			return;
 		}
@@ -223,7 +223,7 @@ public class DireccionDao {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				Log.warning("Error tancant connexió JDBC");				
+				Log.warning("Error tancant connexio JDBC");				
 				e.printStackTrace();
 			}
 		}
