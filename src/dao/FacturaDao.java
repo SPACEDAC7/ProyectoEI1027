@@ -217,7 +217,7 @@ public class FacturaDao {
 					+ "set id_reserva = ?,"
 					+ "fecha_factura = ?,"
 					+ "precio_factura = ?,"
-					+ "iva = ?,"
+					+ "iva = ? "
 					+ "where id_factura = ?");
 			
 			stmt.setInt(1, factura.getIdReserva());

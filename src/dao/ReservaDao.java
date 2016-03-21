@@ -40,7 +40,7 @@ public class ReservaDao {
 			while (rs.next()) {
 				Reserva reserva = new Reserva();
 				reserva.setIdReserva(rs.getInt("id_reserva"));
-				reserva.setIdUsuario(rs.getInt("idUsuario"));
+				reserva.setIdUsuario(rs.getInt("id_usuario"));
 				reserva.setIdPropiedad(rs.getInt("id_propiedad"));
 				reserva.setFechaReserva(rs.getDate("fecha_reserva"));
 				reserva.setFechaCheckin(rs.getDate("fecha_checkin"));
@@ -234,7 +234,7 @@ public class ReservaDao {
 					+ "fecha_checkin = ?,"
 					+ "fecha_checkout = ?,"
 					+ "precio_reserva = ?,"
-					+ "estado = ?,"
+					+ "estado = ? "
 					+ "where id_reserva = ?");
 			
 			stmt.setInt(1, reserva.getIdUsuario());

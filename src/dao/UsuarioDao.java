@@ -242,7 +242,7 @@ public class UsuarioDao {
 					+ "id_direccion = ?,"
 					+ "fecha_registro = ?,"
 					+ "telefono = ?,"
-					+ "estado_usuario = ?"
+					+ "estado_usuario = ? "
 					+ "where id_usuario = ?");
 			
 			stmt.setInt(1, usuario.getIdCredencial());

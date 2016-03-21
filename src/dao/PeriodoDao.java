@@ -215,7 +215,7 @@ public class PeriodoDao {
 					"update periodo "
 					+ "set id_propiedad = ?,"
 					+ "inicio = ?,"
-					+ "fin = ?,"
+					+ "fin = ? "
 					+ "where id_periodo = ?");
 			
 			stmt.setInt(1, periodo.getIdPropiedad());

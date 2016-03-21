@@ -10,11 +10,11 @@ import java.util.logging.Logger;
 
 import conection.ConnectionManager;
 
-
-public class PropiedadDao {
-	private final static Logger Log = Logger.getLogger(PropiedadDao.class.getName());
+public class PuntuacionDao {
 	
-	Set<Propiedad> getPropiedades() {
+	private final static Logger Log = Logger.getLogger(PuntuacionDao.class.getName());
+	
+	Set<Puntuacion> getPuntuaciones() {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -29,30 +29,22 @@ public class PropiedadDao {
 			e.printStackTrace();
 			return null;
 		}
-		HashSet<Propiedad> propiedades = new HashSet<Propiedad>();
+		HashSet<Puntuacion> puntuaciones = new HashSet<Puntuacion>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			stmt = conn.prepareStatement("select id_propiedad, id_usuario, titulo, descripcion"
-					+ ", tipo, capacidad, num_habitaciones, num_camas, area, servicios"
-					+ ", precio_propiedad, id_direccion, url_mapa from propiedad");
+			stmt = conn.prepareStatement("select id_puntuacion, id_propiedad"
+					+ ", id_usuario, valor_puntuacion, comentario from puntuacion");
+			
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				Propiedad propiedad = new Propiedad();
-				propiedad.setId_propiedad(rs.getInt("id_propiedad"));
-				propiedad.setId_usuario(rs.getInt("id_usuario"));
-				propiedad.setTitulo(rs.getString("titulo"));
-				propiedad.setDescripcion(rs.getString("descripcion"));
-				propiedad.setTipo(rs.getString("tipo"));
-				propiedad.setCapacidad(rs.getInt("capacidad"));
-				propiedad.setNum_habitaciones(rs.getInt("num_habitaciones"));
-				propiedad.setNum_camas(rs.getInt("num_camas"));
-				propiedad.setArea(rs.getInt("area"));
-				propiedad.setServicios(rs.getString("servicios"));
-				propiedad.setPrecio_propiedad(rs.getFloat("precio_propiedad"));
-				propiedad.setId_direccion(rs.getInt("id_direccion"));
-				propiedad.setUrl_mapa(rs.getString("url_mapa"));
-				propiedades.add(propiedad);
+				Puntuacion puntuacion = new Puntuacion();
+				puntuacion.setIdPuntuacion(rs.getInt("id_puntuacion"));
+				puntuacion.setIdPropiedad(rs.getInt("id_propiedad"));
+				puntuacion.setIdUsuario(rs.getInt("id_usuario"));
+				puntuacion.setValorPuntuacion(rs.getInt("valor_puntuacion"));
+				puntuacion.setComentario(rs.getString("comentario"));
+				puntuaciones.add(puntuacion);
 			}
 		}
 		catch (SQLException e) {
@@ -85,10 +77,76 @@ public class PropiedadDao {
 				e.printStackTrace();
 			}
 		}
-		return propiedades;
+		return puntuaciones;
 	}
 	
-	Propiedad getPropiedad(int idPropiedadABuscar) {
+	Set<Puntuacion> getPuntuacionesDePropiedad(int idPropiedad) {
+		Connection conn = null;
+		try {
+			conn = ConnectionManager.getConnection();
+		}
+		catch (ClassNotFoundException e) {
+			Log.severe("Driver JDBC no trobat");
+			e.printStackTrace();
+			return null;
+		}
+		catch (SQLException e) {
+			Log.severe("Error creant connexió JDBC");
+			e.printStackTrace();
+			return null;
+		}
+		HashSet<Puntuacion> puntuaciones = new HashSet<Puntuacion>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.prepareStatement("select id_puntuacion, id_propiedad"
+					+ ", id_usuario, valor_puntuacion, comentario from puntuacion where id_propiedad=?");
+			stmt.setInt(1, idPropiedad);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Puntuacion puntuacion = new Puntuacion();
+				puntuacion.setIdPuntuacion(rs.getInt("id_puntuacion"));
+				puntuacion.setIdPropiedad(rs.getInt("id_propiedad"));
+				puntuacion.setIdUsuario(rs.getInt("id_usuario"));
+				puntuacion.setValorPuntuacion(rs.getInt("valor_puntuacion"));
+				puntuacion.setComentario(rs.getString("comentario"));
+				puntuaciones.add(puntuacion);
+			}
+		}
+		catch (SQLException e) {
+			Log.severe("Error executant PreparedStatement");
+			e.printStackTrace();
+			return null;
+		}
+		finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				}
+				catch (SQLException e) {
+					Log.warning("Error tancant ResultSet");
+					e.printStackTrace();
+				}
+			}
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					Log.warning("Error tancant PreparedStatement");
+					e.printStackTrace();
+				}
+			}
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				Log.warning("Error tancant connexió JDBC");				
+				e.printStackTrace();
+			}
+		}
+		return puntuaciones;
+	}
+	
+	Puntuacion getPuntuacion(int idPuntuacionABuscar) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -105,30 +163,21 @@ public class PropiedadDao {
 		}
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		Propiedad propiedad = null;
+		Puntuacion puntuacion = null;
 		try {
-			String sql = "select id_propiedad, id_usuario, titulo, descripcion"
-					+ ", tipo, capacidad, num_habitaciones, num_camas, area, servicios"
-					+ ", precio_propiedad, id_direccion, url_mapa from propiedad where id_propiedad=?;";
+			String sql = "select id_puntuacion, id_propiedad, id_usuario"
+					+ ", valor_puntuacion, comentario from puntuacion where id_puntuacion=?;";
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, idPropiedadABuscar);
+			stmt.setInt(1, idPuntuacionABuscar);
 			rs = stmt.executeQuery();
-			propiedad = new Propiedad();
+			puntuacion = new Puntuacion();
 			if (rs != null) {
 				while (rs.next()) {
-					propiedad.setId_propiedad(rs.getInt(1));
-					propiedad.setId_usuario(rs.getInt(2));
-					propiedad.setTitulo(rs.getString(3));
-					propiedad.setDescripcion(rs.getString(4));
-					propiedad.setTipo(rs.getString(5));
-					propiedad.setCapacidad(rs.getInt(6));
-					propiedad.setNum_habitaciones(rs.getInt(7));
-					propiedad.setNum_camas(rs.getInt(8));
-					propiedad.setArea(rs.getInt(9));
-					propiedad.setServicios(rs.getString(10));
-					propiedad.setPrecio_propiedad(rs.getFloat(11));
-					propiedad.setId_direccion(rs.getInt(12));
-					propiedad.setUrl_mapa(rs.getString(13));
+					puntuacion.setIdPuntuacion(rs.getInt(1));
+					puntuacion.setIdPropiedad(rs.getInt(2));
+					puntuacion.setIdUsuario(rs.getInt(3));
+					puntuacion.setValorPuntuacion(rs.getInt(4));
+					puntuacion.setComentario(rs.getString(5));
 				}
 			}
 		} 
@@ -162,10 +211,10 @@ public class PropiedadDao {
 				e.printStackTrace();
 			}
 		}
-		return propiedad;
+		return puntuacion;
 	}
 	
-	void addPropiedad(Propiedad propiedad) {
+	void addPuntuacion(Puntuacion puntuacion) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -183,23 +232,13 @@ public class PropiedadDao {
 		PreparedStatement stmt = null;
 		try {
 			 stmt = conn.prepareStatement(
-					"insert into propiedad(id_propiedad, id_usuario, titulo, descripcion"
-					+ ", tipo, capacidad, num_habitaciones, num_camas, area, servicios"
-					+ ", precio_propiedad, id_direccion, url_mapa) "
-					+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-			stmt.setInt(1, propiedad.getId_propiedad());
-			stmt.setInt(2, propiedad.getId_usuario());
-			stmt.setString(3, propiedad.getTitulo());
-			stmt.setString(4, propiedad.getDescripcion());
-			stmt.setString(5, propiedad.getTipo());
-			stmt.setInt(6, propiedad.getCapacidad());
-			stmt.setInt(7, propiedad.getNum_habitaciones());
-			stmt.setInt(8, propiedad.getNum_camas());
-			stmt.setInt(9, propiedad.getArea());
-			stmt.setString(10, propiedad.getServicios());
-			stmt.setFloat(11, propiedad.getPrecio_propiedad());
-			stmt.setInt(12, propiedad.getId_direccion());
-			stmt.setString(13, propiedad.getUrl_mapa());
+					"insert into puntuacion(id_puntuacion, id_propiedad, id_usuario"
+					+ ", valor_puntuacion, comentario) values(?, ?, ?, ?, ?)");
+			 stmt.setInt(1, puntuacion.getIdPuntuacion());
+			 stmt.setInt(2, puntuacion.getIdPropiedad());
+			 stmt.setInt(3, puntuacion.getIdUsuario());
+			 stmt.setInt(4, puntuacion.getValorPuntuacion());
+			 stmt.setString(5, puntuacion.getComentario());
 			stmt.execute();	
 		}
 		catch (SQLException e) {
@@ -224,7 +263,7 @@ public class PropiedadDao {
 		}
 	}
 	
-	void updatePropiedad(Propiedad propiedad) {
+	void updatePuntuacion(Puntuacion puntuacion) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -241,35 +280,20 @@ public class PropiedadDao {
 		}
 		PreparedStatement stmt = null;
 		try {
-			stmt = conn.prepareStatement(
-					"update propiedad "
-					+ "set id_usuario = ?,"
-					+ "titulo = ?,"
-					+ "descripcion = ?,"
-					+ "tipo = ?,"
-					+ "capacidad = ?,"
-					+ "num_habitaciones = ?,"
-					+ "num_camas = ?,"
-					+ "area = ?,"
-					+ "servicios = ?,"
-					+ "precio_propiedad = ?,"
-					+ "id_direccion = ?,"
-					+ "url_mapa = ? "
-					+ "where id_propiedad = ?");
 			
-			stmt.setInt(1, propiedad.getId_usuario());
-			stmt.setString(2, propiedad.getTitulo());
-			stmt.setString(3, propiedad.getDescripcion());
-			stmt.setString(4, propiedad.getTipo());
-			stmt.setInt(5, propiedad.getCapacidad());
-			stmt.setInt(6, propiedad.getNum_habitaciones());
-			stmt.setInt(7, propiedad.getNum_camas());
-			stmt.setInt(8, propiedad.getArea());
-			stmt.setString(9, propiedad.getServicios());
-			stmt.setFloat(10, propiedad.getPrecio_propiedad());
-			stmt.setInt(11, propiedad.getId_direccion());
-			stmt.setString(12, propiedad.getUrl_mapa());
-			stmt.setInt(13, propiedad.getId_propiedad());
+			stmt = conn.prepareStatement(
+					"update puntuacion "
+					+ "set id_propiedad = ?,"
+					+ "id_usuario = ?,"
+					+ "valor_puntuacion = ?,"
+					+ "comentario = ? "
+					+ "where id_puntuacion = ?");
+			
+			stmt.setInt(1, puntuacion.getIdPropiedad());
+			stmt.setInt(2, puntuacion.getIdUsuario());
+			stmt.setInt(3, puntuacion.getValorPuntuacion());
+			stmt.setString(4, puntuacion.getComentario());
+			stmt.setInt(5, puntuacion.getIdPuntuacion());
 			stmt.execute();	
 		}
 		catch (SQLException e) {
@@ -294,7 +318,7 @@ public class PropiedadDao {
 		}
 	}
 	
-	void deletePropiedad(Propiedad propiedad) {
+	void deletePuntuacion(Puntuacion puntuacion) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -311,9 +335,9 @@ public class PropiedadDao {
 		}
 		PreparedStatement stmt = null;
 		try {
-			String sql = "DELETE FROM propiedad WHERE id_propiedad=?";
+			String sql = "DELETE FROM puntuacion WHERE id_puntuacion=?";
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, propiedad.getId_propiedad());
+			stmt.setInt(1, puntuacion.getIdPuntuacion());
 			stmt.executeUpdate();
 		}
 		catch (SQLException e) {
@@ -338,7 +362,7 @@ public class PropiedadDao {
 		}
 	}
 	
-	void deletePropiedad(int id_propiedad) {
+	void deletePuntuacion(int idPuntuacion) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -355,9 +379,9 @@ public class PropiedadDao {
 		}
 		PreparedStatement stmt = null;
 		try {
-			String sql = "DELETE FROM propiedad WHERE id_propiedad=?";
+			String sql = "DELETE FROM puntuacion WHERE id_puntuacion=?";
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, id_propiedad);
+			stmt.setInt(1, idPuntuacion);
 			stmt.executeUpdate();
 		}
 		catch (SQLException e) {
@@ -381,6 +405,5 @@ public class PropiedadDao {
 			}
 		}
 	}
-	
 
 }
