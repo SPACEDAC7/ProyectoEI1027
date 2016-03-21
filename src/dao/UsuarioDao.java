@@ -10,11 +10,10 @@ import java.util.logging.Logger;
 
 import conection.ConnectionManager;
 
-
-public class PropiedadDao {
-	private final static Logger Log = Logger.getLogger(PropiedadDao.class.getName());
+public class UsuarioDao {
+	private final static Logger Log = Logger.getLogger(UsuarioDao.class.getName());
 	
-	Set<Propiedad> getNadadors() {
+	Set<Usuario> getUsuarios() {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -29,30 +28,27 @@ public class PropiedadDao {
 			e.printStackTrace();
 			return null;
 		}
-		HashSet<Propiedad> propiedades = new HashSet<Propiedad>();
+		HashSet<Usuario> usuarios = new HashSet<Usuario>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			stmt = conn.prepareStatement("select id_propiedad, id_usuario, titulo, descripcion"
-					+ ", tipo, capacidad, num_habitaciones, num_camas, area, servicios"
-					+ ", precio_propiedad, id_direccion, url_mapa from propiedad");
+			stmt = conn.prepareStatement("select id_usuario, id_credencial, nombre"
+					+ ", apellido, nif, email, id_direccion, fecha_registro, telefono"
+					+ ", estado_usuario from usuario");
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				Propiedad propiedad = new Propiedad();
-				propiedad.setId_propiedad(rs.getInt("id_propiedad"));
-				propiedad.setId_usuario(rs.getInt("id_usuario"));
-				propiedad.setTitulo(rs.getString("titulo"));
-				propiedad.setDescripcion(rs.getString("descripcion"));
-				propiedad.setTipo(rs.getString("tipo"));
-				propiedad.setCapacidad(rs.getInt("capacidad"));
-				propiedad.setNum_habitaciones(rs.getInt("num_habitaciones"));
-				propiedad.setNum_camas(rs.getInt("num_camas"));
-				propiedad.setArea(rs.getInt("area"));
-				propiedad.setServicios(rs.getString("servicios"));
-				propiedad.setPrecio_propiedad(rs.getFloat("precio_propiedad"));
-				propiedad.setId_direccion(rs.getInt("id_direccion"));
-				propiedad.setUrl_mapa(rs.getString("url_mapa"));
-				propiedades.add(propiedad);
+				Usuario usuario = new Usuario();
+				usuario.setIdUsuario(rs.getInt("id_usuario"));
+				usuario.setIdCredencial(rs.getInt("id_credencial"));
+				usuario.setNombre(rs.getString("nombre"));
+				usuario.setApellido(rs.getString("apellido"));
+				usuario.setNif(rs.getString("nif"));
+				usuario.setEmail(rs.getString("email"));
+				usuario.setIdDireccion(rs.getInt("id_direccion"));
+				usuario.setFechaRegistro(rs.getDate("fecha_registro"));
+				usuario.setTelefono(rs.getInt("telefono"));
+				usuario.setEstadoUsuario(rs.getBoolean("estado_usuario"));
+				usuarios.add(usuario);
 			}
 		}
 		catch (SQLException e) {
@@ -85,10 +81,10 @@ public class PropiedadDao {
 				e.printStackTrace();
 			}
 		}
-		return propiedades;
+		return usuarios;
 	}
 	
-	Propiedad getPropiedad(int idPropiedadABuscar) {
+	Usuario getUsuario(int idUsuarioABuscar) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -105,30 +101,27 @@ public class PropiedadDao {
 		}
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		Propiedad propiedad = null;
+		Usuario usuario = null;
 		try {
-			String sql = "select id_propiedad, id_usuario, titulo, descripcion"
-					+ ", tipo, capacidad, num_habitaciones, num_camas, area, servicios"
-					+ ", precio_propiedad, id_direccion, url_mapa from propiedad where id_propiedad=?;";
+			String sql = "select id_usuario, id_credencial, nombre"
+					+ ", apellido, nif, email, id_direccion, fecha_registro, telefono"
+					+ ", estado_usuario from usuario where id_usuario=?;";
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, idPropiedadABuscar);
+			stmt.setInt(1, idUsuarioABuscar);
 			rs = stmt.executeQuery();
-			propiedad = new Propiedad();
+			usuario = new Usuario();
 			if (rs != null) {
 				while (rs.next()) {
-					propiedad.setId_propiedad(rs.getInt(1));
-					propiedad.setId_usuario(rs.getInt(2));
-					propiedad.setTitulo(rs.getString(3));
-					propiedad.setDescripcion(rs.getString(4));
-					propiedad.setTipo(rs.getString(5));
-					propiedad.setCapacidad(rs.getInt(6));
-					propiedad.setNum_habitaciones(rs.getInt(7));
-					propiedad.setNum_camas(rs.getInt(8));
-					propiedad.setArea(rs.getInt(9));
-					propiedad.setServicios(rs.getString(10));
-					propiedad.setPrecio_propiedad(rs.getFloat(11));
-					propiedad.setId_direccion(rs.getInt(12));
-					propiedad.setUrl_mapa(rs.getString(13));
+					usuario.setIdUsuario(rs.getInt(1));
+					usuario.setIdCredencial(rs.getInt(2));
+					usuario.setNombre(rs.getString(3));
+					usuario.setApellido(rs.getString(4));
+					usuario.setNif(rs.getString(5));
+					usuario.setEmail(rs.getString(6));
+					usuario.setIdDireccion(rs.getInt(7));
+					usuario.setFechaRegistro(rs.getDate(8));
+					usuario.setTelefono(rs.getInt(9));
+					usuario.setEstadoUsuario(rs.getBoolean(10));
 				}
 			}
 		} 
@@ -162,10 +155,11 @@ public class PropiedadDao {
 				e.printStackTrace();
 			}
 		}
-		return propiedad;
+		return usuario;
 	}
 	
-	void addNadador(Propiedad propiedad) {
+	
+	void addUsuario(Usuario usuario) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -183,23 +177,19 @@ public class PropiedadDao {
 		PreparedStatement stmt = null;
 		try {
 			 stmt = conn.prepareStatement(
-					"insert into propiedad(id_propiedad, id_usuario, titulo, descripcion"
-					+ ", tipo, capacidad, num_habitaciones, num_camas, area, servicios"
-					+ ", precio_propiedad, id_direccion, url_mapa) "
-					+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-			stmt.setInt(1, propiedad.getId_propiedad());
-			stmt.setInt(2, propiedad.getId_usuario());
-			stmt.setString(3, propiedad.getTitulo());
-			stmt.setString(4, propiedad.getDescripcion());
-			stmt.setString(5, propiedad.getTipo());
-			stmt.setInt(6, propiedad.getCapacidad());
-			stmt.setInt(7, propiedad.getNum_habitaciones());
-			stmt.setInt(8, propiedad.getNum_camas());
-			stmt.setInt(9, propiedad.getArea());
-			stmt.setString(10, propiedad.getServicios());
-			stmt.setFloat(11, propiedad.getPrecio_propiedad());
-			stmt.setInt(12, propiedad.getId_direccion());
-			stmt.setString(13, propiedad.getUrl_mapa());
+					"insert into usuario(id_usuario, id_credencial, nombre"
+					+ ", apellido, nif, email, id_direccion, fecha_registro, telefono"
+					+ ", estado_usuario) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			stmt.setInt(1, usuario.getIdUsuario());
+			stmt.setInt(2, usuario.getIdCredencial());
+			stmt.setString(3, usuario.getNombre());
+			stmt.setString(4, usuario.getApellido());
+			stmt.setString(5, usuario.getNif());
+			stmt.setString(6, usuario.getEmail());
+			stmt.setInt(7, usuario.getIdDireccion());
+			stmt.setDate(8, usuario.getFechaRegistro());
+			stmt.setInt(9, usuario.getTelefono());
+			stmt.setBoolean(10, usuario.getEstadoUsuario());
 			stmt.execute();	
 		}
 		catch (SQLException e) {
@@ -224,7 +214,8 @@ public class PropiedadDao {
 		}
 	}
 	
-	void updateNadador(Propiedad propiedad) {
+	
+	void updateUsuario(Usuario usuario) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -242,34 +233,28 @@ public class PropiedadDao {
 		PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement(
-					"update propiedad "
-					+ "set id_usuario = ?,"
-					+ "titulo = ?,"
-					+ "descripcion = ?,"
-					+ "tipo = ?,"
-					+ "capacidad = ?,"
-					+ "num_habitaciones = ?,"
-					+ "num_camas = ?,"
-					+ "area = ?,"
-					+ "servicios = ?,"
-					+ "precio_propiedad = ?,"
+					"update usuario "
+					+ "set id_credencial = ?,"
+					+ "nombre = ?,"
+					+ "apellido = ?,"
+					+ "nif = ?,"
+					+ "email = ?,"
 					+ "id_direccion = ?,"
-					+ "url_mapa = ?"
-					+ "where id_propiedad = ?");
+					+ "fecha_registro = ?,"
+					+ "telefono = ?,"
+					+ "estado_usuario = ?"
+					+ "where id_usuario = ?");
 			
-			stmt.setInt(1, propiedad.getId_usuario());
-			stmt.setString(2, propiedad.getTitulo());
-			stmt.setString(3, propiedad.getDescripcion());
-			stmt.setString(4, propiedad.getTipo());
-			stmt.setInt(5, propiedad.getCapacidad());
-			stmt.setInt(6, propiedad.getNum_habitaciones());
-			stmt.setInt(7, propiedad.getNum_camas());
-			stmt.setInt(8, propiedad.getArea());
-			stmt.setString(9, propiedad.getServicios());
-			stmt.setFloat(10, propiedad.getPrecio_propiedad());
-			stmt.setInt(11, propiedad.getId_direccion());
-			stmt.setString(12, propiedad.getUrl_mapa());
-			stmt.setInt(13, propiedad.getId_propiedad());
+			stmt.setInt(1, usuario.getIdCredencial());
+			stmt.setString(2, usuario.getNombre());
+			stmt.setString(3, usuario.getApellido());
+			stmt.setString(4, usuario.getNif());
+			stmt.setString(5, usuario.getEmail());
+			stmt.setInt(6, usuario.getIdDireccion());
+			stmt.setDate(7, usuario.getFechaRegistro());
+			stmt.setInt(8, usuario.getTelefono());
+			stmt.setBoolean(9, usuario.getEstadoUsuario());
+			stmt.setInt(10, usuario.getIdUsuario());
 			stmt.execute();	
 		}
 		catch (SQLException e) {
@@ -294,7 +279,7 @@ public class PropiedadDao {
 		}
 	}
 	
-	void deleteNadador(Propiedad propiedad) {
+	void deleteUsuario(Usuario usuario) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -311,9 +296,9 @@ public class PropiedadDao {
 		}
 		PreparedStatement stmt = null;
 		try {
-			String sql = "DELETE FROM propiedad WHERE id_propiedad=?";
+			String sql = "DELETE FROM usuario WHERE id_usuario=?";
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, propiedad.getId_propiedad());
+			stmt.setInt(1, usuario.getIdUsuario());
 			stmt.executeUpdate();
 		}
 		catch (SQLException e) {
@@ -338,7 +323,7 @@ public class PropiedadDao {
 		}
 	}
 	
-	void deleteNadador(int id_propiedad) {
+	void deleteUsuario(int idUsuario) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -355,9 +340,9 @@ public class PropiedadDao {
 		}
 		PreparedStatement stmt = null;
 		try {
-			String sql = "DELETE FROM propiedad WHERE id_propiedad=?";
+			String sql = "DELETE FROM usuario WHERE id_usuario=?";
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, id_propiedad);
+			stmt.setInt(1, idUsuario);
 			stmt.executeUpdate();
 		}
 		catch (SQLException e) {
@@ -382,5 +367,4 @@ public class PropiedadDao {
 		}
 	}
 	
-
 }

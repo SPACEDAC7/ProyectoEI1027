@@ -36,7 +36,8 @@ public class Propiedad {
 		this.url_mapa = url_mapa;
 	}
 	
-	public Propiedad() {		
+	public Propiedad() {
+		super();
 	}
 	
 	public int getId_propiedad() {
