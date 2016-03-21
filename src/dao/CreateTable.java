@@ -51,6 +51,7 @@ public class CreateTable {
 									"id_direccion NUMERIC,"+
 									"fecha_registro DATE,"+
 									"telefono NUMERIC,"+
+									"estado_usuario BOOLEAN"+
 									"CONSTRAINT cp_usuario PRIMARY KEY (id_usuario),"+
 									"CONSTRAINT ca_usuario_credencial FOREIGN KEY (id_credencial) REFERENCES credencial(id_credencial) ON DELETE RESTRICT ON UPDATE RESTRICT,"+
 									"CONSTRAINT ca_usuario_direccion FOREIGN KEY (id_direccion) REFERENCES direccion(id_direccion) ON DELETE RESTRICT ON UPDATE CASCADE,"+
