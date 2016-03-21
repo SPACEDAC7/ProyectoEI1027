@@ -159,7 +159,7 @@ public class UsuarioDao {
 	}
 	
 	
-	void addUsuario(Usuario usuario) {
+	public void addUsuario(Usuario usuario) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
