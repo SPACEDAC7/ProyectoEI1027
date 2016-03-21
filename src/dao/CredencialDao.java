@@ -97,14 +97,12 @@ public class CredencialDao {
 		PreparedStatement stmt = null;
 		try {
 			 stmt = conn.prepareStatement(
-					"insert into direccion(id_direccion, calle, numero, codigo_postal, localidad, provincia) "
+					"insert into direccion(id_credencial, nick_usuario, password , rol) "
 					+ "values(?, ?, ?, ?, ?, ?)");
-			stmt.setInt(1, direccion.getId_direccion());
-			stmt.setString(2, direccion.getCalle());
-			stmt.setInt(3, direccion.getNumero());
-			stmt.setInt(4, direccion.getCodigo_postal());
-			stmt.setString(5, direccion.getLocalidad());
-			stmt.setString(6, direccion.getProvincia());
+			stmt.setInt(1, credencial.getId_credencial());
+			stmt.setString(2, credencial.getNick_usuario());
+			stmt.setString(3, credencial.getPassword());
+			stmt.setString(4, credencial.getRol());
 			stmt.execute();	
 		}
 		catch (SQLException e) {
@@ -129,7 +127,7 @@ public class CredencialDao {
 		}
 	}
 	
-	void updateDireccion(Direccion direccion) {
+	void updateCredencial(Credencial credencial) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -147,19 +145,15 @@ public class CredencialDao {
 		PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement(
-					"update direccion "
-					+ "set calle = ?,"
-					+ "numero = ?"
-					+ "codigo_postal = ?"
-					+ "localidad = ?"
-					+ "provincia = ?"
-					+ "where id_direccion = ?");
-			stmt.setString(1, direccion.getCalle());
-			stmt.setInt(2, direccion.getNumero());
-			stmt.setInt(3, direccion.getCodigo_postal());
-			stmt.setString(4, direccion.getLocalidad());
-			stmt.setString(5, direccion.getProvincia());
-			stmt.setInt(6, direccion.getId_direccion());
+					"update credencial "
+					+ "set nick_usuario = ?,"
+					+ "password = ?"
+					+ "rol = ?"
+					+ "where id_credencial = ?");
+			stmt.setString(1, credencial.getNick_usuario());
+			stmt.setString(2, credencial.getPassword());
+			stmt.setString(3, credencial.getRol());
+			stmt.setInt(4, credencial.getId_credencial());
 			stmt.execute();	
 		}
 		catch (SQLException e) {
@@ -184,7 +178,7 @@ public class CredencialDao {
 		}
 	}
 
-	void deleteDireccion(Direccion direccion) {
+	void deleteCredencial(Credencial credencial) {
 		Connection conn = null;
 		try {
 			conn = ConnectionManager.getConnection();
@@ -202,8 +196,8 @@ public class CredencialDao {
 		PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement(
-					"DELETE FROM direccion WHERE id_direccion = ?");
-			stmt.setInt(1, direccion.getId_direccion());
+					"DELETE FROM credencial WHERE id_credencial = ?");
+			stmt.setInt(1, credencial.getId_credencial());
 			stmt.execute();	
 		}
 		catch (SQLException e) {

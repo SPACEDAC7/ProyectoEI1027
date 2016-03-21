@@ -13,7 +13,7 @@ public class Credencial {
 		this.password = password;
 		this.rol = rol;
 	}
-	
+	 
 	public Credencial() {
 		super();
 	}
