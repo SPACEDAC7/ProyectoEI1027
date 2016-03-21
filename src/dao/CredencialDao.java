@@ -98,7 +98,7 @@ public class CredencialDao {
 		try {
 			 stmt = conn.prepareStatement(
 					"insert into direccion(id_credencial, nick_usuario, password , rol) "
-					+ "values(?, ?, ?, ?, ?, ?)");
+					+ "values(?, ?, ?, ?)");
 			stmt.setInt(1, credencial.getId_credencial());
 			stmt.setString(2, credencial.getNick_usuario());
 			stmt.setString(3, credencial.getPassword());
