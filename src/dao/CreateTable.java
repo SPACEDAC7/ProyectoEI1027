@@ -150,7 +150,7 @@ public class CreateTable {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				System.out.println("Error tancant connexió JDBC");				
+				System.out.println("Error tancant connexiï¿½ JDBC");				
 				e.printStackTrace();
 			}
 		}
