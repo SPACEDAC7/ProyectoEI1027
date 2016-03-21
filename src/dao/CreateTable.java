@@ -54,7 +54,7 @@ public class CreateTable {
 									"estado_usuario BOOLEAN"+
 									"CONSTRAINT cp_usuario PRIMARY KEY (id_usuario),"+
 									"CONSTRAINT ca_usuario_credencial FOREIGN KEY (id_credencial) REFERENCES credencial(id_credencial) ON DELETE RESTRICT ON UPDATE RESTRICT,"+
-									"CONSTRAINT ca_usuario_direccion FOREIGN KEY (id_direccion) REFERENCES direccion(id_direccion) ON DELETE RESTRICT ON UPDATE CASCADE,"+
+									"CONSTRAINT ca_usuario_direccion FOREIGN KEY (id_direccion) REFERENCES direccion(id_direccion) ON DELETE SET NULL ON UPDATE CASCADE,"+
 									"CONSTRAINT calt_usuario UNIQUE (nif)"+
 									");";
 			String sql_respuesta_puntuacion = "CREATE TABLE RESPUESTA_PUNTUACION ("+
@@ -85,7 +85,7 @@ public class CreateTable {
 									"valor_puntuacion NUMERIC,"+
 									"comentario VARCHAR(1000),"+
 									"CONSTRAINT cp_puntuacion PRIMARY KEY (id_puntuacion),"+
-									"CONSTRAINT ca_puntuacion_propiedad FOREIGN KEY (id_propiedad) REFERENCES propiedad(id_propiedad) ON DELETE CASCADE ON UPDATE CASCADE,"+
+									"CONSTRAINT ca_puntuacion_propiedad FOREIGN KEY (id_propiedad) REFERENCES propiedad(id_propiedad) ON DELETE SET NULL ON UPDATE CASCADE,"+
 									"CONSTRAINT ca_puntuacion_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE RESTRICT ON UPDATE CASCADE"+
 									");";
 			String sql_propiedad = "CREATE TABLE PROPIEDAD ("+
@@ -104,7 +104,7 @@ public class CreateTable {
 									"url_mapa VARCHAR (100),"+
 									"CONSTRAINT cp_propiedad PRIMARY KEY (id_propiedad),"+
 									"CONSTRAINT ca_propiedad_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE RESTRICT ON UPDATE CASCADE,"+
-									"CONSTRAINT ca_propiedad_direccion FOREIGN KEY (id_direccion) REFERENCES direccion(id_direccion) ON DELETE RESTRICT ON UPDATE CASCADE"+
+									"CONSTRAINT ca_propiedad_direccion FOREIGN KEY (id_direccion) REFERENCES direccion(id_direccion) ON DELETE SET NULL ON UPDATE CASCADE"+
 									");";
 			String sql_periodo = "CREATE TABLE PERIODO ("+
 									"id_periodo NUMERIC		NOT NULL,"+
