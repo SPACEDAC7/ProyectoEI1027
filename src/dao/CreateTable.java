@@ -51,7 +51,7 @@ public class CreateTable {
 									"id_direccion NUMERIC,"+
 									"fecha_registro DATE,"+
 									"telefono NUMERIC,"+
-									"estado_usuario BOOLEAN"+
+									"estado_usuario BOOLEAN,"+
 									"CONSTRAINT cp_usuario PRIMARY KEY (id_usuario),"+
 									"CONSTRAINT ca_usuario_credencial FOREIGN KEY (id_credencial) REFERENCES credencial(id_credencial) ON DELETE RESTRICT ON UPDATE RESTRICT,"+
 									"CONSTRAINT ca_usuario_direccion FOREIGN KEY (id_direccion) REFERENCES direccion(id_direccion) ON DELETE SET NULL ON UPDATE CASCADE,"+
@@ -123,16 +123,25 @@ public class CreateTable {
 									"CONSTRAINT ca_imagen_propiedad FOREIGN KEY (id_propiedad) REFERENCES propiedad(id_propiedad) ON DELETE CASCADE ON UPDATE CASCADE"+
 									");";
 			stmt.executeUpdate(sql_direccion);
+			System.out.println("Tabla direccion creada");
 			stmt.executeUpdate(sql_credencial);
+			System.out.println("Tabla credencial creada");
 			stmt.executeUpdate(sql_usuario);
-  			stmt.executeUpdate(sql_propiedad);  			
+			System.out.println("Tabla usuario creada");
+  			stmt.executeUpdate(sql_propiedad);  		
+  			System.out.println("Tabla propiedad creada");
   			stmt.executeUpdate(sql_periodo);
+  			System.out.println("Tabla periodo creada");
   			stmt.executeUpdate(sql_imagen);
+  			System.out.println("Tabla imagen creada");
   			stmt.executeUpdate(sql_reserva);
+  			System.out.println("Tabla reserva creada");
   			stmt.executeUpdate(sql_factura);
+  			System.out.println("Tabla factura creada");
   			stmt.executeUpdate(sql_puntuacion);
+  			System.out.println("Tabla puntuacion creada");
   			stmt.executeUpdate(sql_respuesta_puntuacion);
-  			
+  			System.out.println("Tabla respuesta puntuacion creada");
   			
   			System.out.println("Tablas creadas...");
 		}catch (SQLException e) {
