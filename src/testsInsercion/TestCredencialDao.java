@@ -1,4 +1,4 @@
-package tests;
+package testsInsercion;
 import dao.Credencial;
 import dao.CredencialDao;
 

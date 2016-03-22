@@ -1,4 +1,4 @@
-package tests;
+package testsInsercion;
 
 import dao.Direccion;
 import dao.DireccionDao;
