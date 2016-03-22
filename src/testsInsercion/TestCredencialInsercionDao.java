@@ -2,7 +2,7 @@ package testsInsercion;
 import dao.Credencial;
 import dao.CredencialDao;
 
-public class TestCredencialDao {
+public class TestCredencialInsercionDao {
 
 	public static void main(String[] args) {
 		CredencialDao credeDao = new CredencialDao();

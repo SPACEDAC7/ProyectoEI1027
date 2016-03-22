@@ -5,7 +5,7 @@ import java.sql.Date;
 import dao.Usuario;
 import dao.UsuarioDao;
 
-public class TestUsuarioDao {
+public class TestUsuarioInsercionDao {
 	
 	public static void main(String[] args) {
 		

@@ -3,7 +3,7 @@ package testsInsercion;
 import dao.Propiedad;
 import dao.PropiedadDao;
 
-public class TestPropiedadDao {
+public class TestPropiedadInsercionDao {
 	public static void main(String[] args){
 		PropiedadDao propDao = new PropiedadDao();
 		Propiedad prop = new Propiedad(1,1,"Casa Asdrubal","Es una ca molto grande","casa",6,5,5,150,"wifi",20.3F,1,"http://maps.google.com/CasaAsdrubal");

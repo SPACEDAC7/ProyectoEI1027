@@ -3,7 +3,7 @@ package testsInsercion;
 import dao.Direccion;
 import dao.DireccionDao;
 
-public class TestDireccionDao {
+public class TestDireccionInsercionDao {
 	public static void main(String[] args){
 		DireccionDao dirDao = new DireccionDao();
 		Direccion dir = new Direccion(1,"ameba",3,12540,"zorri","caquita");
