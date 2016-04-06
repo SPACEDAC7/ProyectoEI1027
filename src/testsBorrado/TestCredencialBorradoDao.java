@@ -11,30 +11,30 @@ public class TestCredencialBorradoDao {
 
 		System.out.println("Credencial "  + cre.getId_credencial() + " borrada");
 		
-		cre = new Credencial(2,"almolo","feria","administrador");
-		credeDao.deleteCredencial(cre);
-		
-		System.out.println("Credencial "  + cre.getId_credencial() + " borrada");
-		
-		cre = new Credencial(3,"eslavo","feten","propietario");
-		credeDao.deleteCredencial(cre);
-		
-		System.out.println("Credencial "  + cre.getId_credencial() + " borrada");
-		
-		cre = new Credencial(4,"muzcka","rusos","inquilino");
-		credeDao.deleteCredencial(cre);
-		
-		System.out.println("Credencial "  + cre.getId_credencial() + " borrada");
-		
-		cre = new Credencial(5,"traca","valen","administrador");
-		credeDao.deleteCredencial(cre);
-		
-		System.out.println("Credencial "  + cre.getId_credencial() + " borrada");
-		
-		cre = new Credencial(6,"renato","niño","inquilino");
-		credeDao.deleteCredencial(cre);
-		
-		System.out.println("Credencial "  + cre.getId_credencial() + " borrada");
+//		cre = new Credencial(2,"almolo","feria","administrador");
+//		credeDao.deleteCredencial(cre);
+//		
+//		System.out.println("Credencial "  + cre.getId_credencial() + " borrada");
+//		
+//		cre = new Credencial(3,"eslavo","feten","propietario");
+//		credeDao.deleteCredencial(cre);
+//		
+//		System.out.println("Credencial "  + cre.getId_credencial() + " borrada");
+//		
+//		cre = new Credencial(4,"muzcka","rusos","inquilino");
+//		credeDao.deleteCredencial(cre);
+//		
+//		System.out.println("Credencial "  + cre.getId_credencial() + " borrada");
+//		
+//		cre = new Credencial(5,"traca","valen","administrador");
+//		credeDao.deleteCredencial(cre);
+//		
+//		System.out.println("Credencial "  + cre.getId_credencial() + " borrada");
+//		
+//		cre = new Credencial(6,"renato","niño","inquilino");
+//		credeDao.deleteCredencial(cre);
+//		
+//		System.out.println("Credencial "  + cre.getId_credencial() + " borrada");
 
 	}
 

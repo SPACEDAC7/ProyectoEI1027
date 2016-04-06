@@ -6,12 +6,12 @@ public class TestCredencialUpdateDao {
 
 	public static void main(String[] args) {
 		CredencialDao credeDao = new CredencialDao();
-		Credencial cre = new Credencial(1,"bbtsjb69","figura2","propietario");
-		credeDao.updateCredencial(cre);
-
-		System.out.println("Credencial "  + cre.getId_credencial() + " actualizada");
+//		Credencial cre = new Credencial(1,"bbtsjb69","figura2","propietario");
+//		credeDao.updateCredencial(cre);
+//
+//		System.out.println("Credencial "  + cre.getId_credencial() + " actualizada");
 		
-		cre = new Credencial(2,"almolo","feria2","administrador");
+		Credencial cre = new Credencial(2,"almolo","feria2","administrador");
 		credeDao.updateCredencial(cre);
 		
 		System.out.println("Credencial "  + cre.getId_credencial() + " actualizada");
